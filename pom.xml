@@ -1,0 +1,145 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>ws.slink.spm</groupId>
+  <artifactId>report-parser</artifactId>
+  <version>0.0.1</version>
+  <name>SR Parser</name>
+  <description>SR information parser / loader</description>
+
+  <build>
+   <pluginManagement>
+     <plugins>
+       <plugin>
+         <artifactId>maven-resources-plugin</artifactId>
+         <version>2.7</version>
+       </plugin>           
+     </plugins>
+   </pluginManagement>   
+
+   <plugins>
+     <plugin>
+       <groupId>org.apache.maven.plugins</groupId>
+         <artifactId>maven-compiler-plugin</artifactId>
+         <version>3.5.1</version>
+         <configuration>
+           <source>1.8</source>
+           <target>1.8</target>
+         </configuration>
+      </plugin>
+      
+      <!-- copy dependencies -->
+      <!-- 
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-dependency-plugin</artifactId>
+        <version>2.5.1</version>
+        <executions>
+          <execution>
+            <id>copy-dependencies</id>
+            <phase>package</phase>
+            <goals>
+              <goal>copy-dependencies</goal>
+            </goals>
+            <configuration>
+              <includeScope>runtime</includeScope>
+              <outputDirectory>${project.build.directory}/deps/</outputDirectory>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+      -->
+      <!-- make jar executable -->
+      <!-- 
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-jar-plugin</artifactId>
+        <configuration>
+          <excludes>
+          </excludes>
+          <archive>
+            <manifest>
+              <mainClass>ws.slink.spm.sr.parser.Application</mainClass>
+              <addClasspath>true</addClasspath>
+              <classpathPrefix>deps/</classpathPrefix>
+            </manifest>
+          </archive>
+        </configuration>
+      </plugin>
+       -->
+       
+	  <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-source-plugin</artifactId>
+        <version>3.0.1</version>
+        <executions>
+          <execution>
+            <id>attach-sources</id>
+            <phase>verify</phase>
+            <goals>
+              <goal>jar-no-fork</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+             
+      <!-- any other plugins -->
+      <plugin>
+        <artifactId>maven-assembly-plugin</artifactId>
+        <executions>
+          <execution>
+            <phase>package</phase>
+            <goals>
+              <goal>single</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <descriptorRefs>
+            <descriptorRef>jar-with-dependencies</descriptorRef>
+          </descriptorRefs>
+          <archive>
+            <manifest>
+              <mainClass>ws.slink.spm.sr.parser.Application</mainClass>
+            </manifest>
+          </archive>
+        </configuration>
+      </plugin>
+      
+   </plugins>
+  </build>
+
+  <dependencies>
+	<!-- common modules -->
+    <dependency>
+	  <groupId>ws.slink.spm</groupId>
+      <artifactId>spm-common</artifactId>
+      <version>0.0.1</version>
+    </dependency>
+
+    <dependency>
+	  <groupId>org.mongodb</groupId>
+      <artifactId>mongodb-driver</artifactId>
+      <version>3.2.2</version>
+    </dependency>
+    <dependency>
+      <groupId>org.mongodb.morphia</groupId>
+      <artifactId>morphia</artifactId>
+      <version>1.2.0</version>
+    </dependency>
+    
+    <!-- XLS format -->
+    <dependency> 
+      <groupId>org.apache.poi</groupId>
+      <artifactId>poi</artifactId>
+      <version>3.13</version>
+    </dependency>
+
+    <!-- XLSX format -->
+    <dependency> 
+      <groupId>org.apache.poi</groupId>
+      <artifactId>poi-ooxml</artifactId>
+      <version>3.13</version>
+    </dependency>
+  </dependencies>
+
+</project>
